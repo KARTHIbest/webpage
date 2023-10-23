@@ -1,0 +1,109 @@
+.sidebar{
+    width: 291.6px;
+    background-color: black;
+    color: white;
+    float: left;
+}
+.elements{
+    border: 1px solid white;
+    padding: 10px;
+    background-color: black;
+}
+.elements > img{
+    background-color: white;
+    width: 60px;
+    height: 30px;
+    
+}
+.elements >p{
+    color: white;
+    margin: 0%;
+    padding: 5px;
+    width: 200px;
+    font-family: sans-serif;
+    font-size: large;
+    float: left;
+}
+.body > button{
+    float: right;
+    width: 10%;
+    padding: 10px;
+    margin: 5px;
+    font-size: medium;
+    font-family: sans-serif;
+}
+#box{
+    border: 1px solid black;
+    height: 500px;
+    width: 75%;
+    margin: 15px;
+    float: right;
+}
+
+.elements:hover{
+    background-color: rgb(34, 50, 31);
+}
+#labl{
+position: absolute;
+  z-index: 9;
+  cursor: move;
+  z-index: 10;
+}
+
+/* ---------------- */
+/* #mydiv {
+    position: absolute;    z-index: 9;    background-color: #f1f1f1;    text-align: center;    border: 1px solid #d3d3d3;
+  }
+  
+  #mydivheader {
+    padding: 10px;    cursor: move;    z-index: 10;    background-color: #2196F3;    color: #fff;  } */
+
+    .draggable {
+        width: auto;
+        height: auto;
+        background-color: white;
+        text-align: center;
+        line-height: 100px;
+        cursor: move;
+        position: absolute;
+      }
+
+      .draggable{
+        border: 1px solid white;
+        padding: 10px;
+        background-color: black;
+    }
+    .draggable > img{
+        background-color: white;
+        width: 60px;
+        height: 30px;
+        
+    }
+    .draggable >p{
+        color: white;
+        margin: 0%;
+        padding: 5px;
+        width: 200px;
+        font-family: sans-serif;
+        font-size: large;
+        float: left;
+    }
+    .draggable:hover{
+        background-color: rgb(34, 50, 31);
+    }
+    #elementContainer {
+        width: 300px;
+        height: 300px;
+        background-color: white;
+        border: 1px solid black;
+        float: right;
+      }
+  
+      .draggable {
+        width: 100px;
+        height: 30px;
+        background-color: lightblue;
+        text-align: center;
+        line-height: 30px;
+        cursor: grab;
+      }

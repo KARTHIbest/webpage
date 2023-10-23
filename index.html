@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Design Page</title>
+    <link rel="stylesheet" href="form.css">
+    <script src="function.js"></script>
+    <style>
+      #elementContainer {
+        width: 300px;
+        height: 300px;
+        background-color: lightgray;
+      }
+  
+      .draggable {
+        width: 100px;
+        height: 30px;
+        background-color: lightblue;
+        text-align: center;
+        line-height: 30px;
+        cursor: grab;
+      }
+    </style>
+</head>
+<body>
+  <!-- <button id="createButton" class="draggable" draggable="true">Drag me to create an element</button>
+        <div id="elementContainer"></div> -->
+    <!-- <div class="sidebar">
+        <h1>Form Designer</h1>
+        <button class="element" name="layout" onclick="layout()"><img src="images/layout.png" alt="layout"><p> Layout</p></button>
+        <button class="element" name="label" onclick="label()"><img src="images/label.png" alt="label"><p> Label</p></button>
+        <button class="element"><img src="images/button.png" alt="button"><p> Button</p></button>
+        <button class="element"><img src="images/text.png" alt="text"><p> Text</p></button>
+        <button class="element"><img src="images/checkbox.png" alt="checkbox"><p> Check-Box</p></button>
+        <button class="element"><img src="images/radio.png" alt="radio"><p> Radio</p></button>
+        <button class="element"><img src="images/dropdown.png" alt="dropdown"><p> Drop-Down</p></button>
+        <button class="element"><img src="images/image.png" alt="image"><p> Image</p></button>
+        <button class="element"><img src="images/table.png" alt="table"><p> Table</p></button>
+        <button class="element"><img src="images/nav-link.png" alt="nav-link"><p> Link</p></button>
+        
+    </div> -->
+    <div class="sidebar">
+      <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form Designer</h1>
+      <button class="elements" name="layout" onclick="layout()"><img src="images/layout.png" alt="layout"><p> Layout</p></button>
+      <button class="elements" id="labelBtn" name="label" ><img src="images/label.png" alt="label"><p> Label</p></button>
+      <button class="elements" id="buttonBtn" onclick="createNewElement()"><img src="images/button.png" alt="button"><p> Button</p></button>
+      <button class="elements" id="textboxBtn"><img src="images/text.png" alt="text"><p> Text</p></button>
+      <button class="elements" id="checkboxBtn"><img src="images/checkbox.png" alt="checkbox"><p> Check-Box</p></button>
+      <button class="elements" id="radioBtn"><img src="images/radio.png" alt="radio"><p> Radio</p></button>
+      <button class="elements" id="dropdownBtn"><img src="images/dropdown.png" alt="dropdown"><p> Drop-Down</p></button>
+      <button class="elements" id="imageBtn"><img src="images/image.png" alt="image"><p> Image</p></button>
+      <button class="elements" onclick="createTable()"><img src="images/table.png" alt="table"><p> Table</p></button>
+      <button class="elements" id="linkBtn"><img src="images/nav-link.png" alt="nav-link"><p> Link</p></button>
+      
+      
+  </div>
+    <div id="lform" >
+    </div>
+    <div class="body">
+        <button>Preview</button>
+        <button style="background-color: teal; color: white;">Publish</button>
+        <br><br>
+        <div id="box"></div>
+        
+        <button onclick="clear()">Clear</button>
+        <button style="background-color: teal; color: white;">Save</button>
+    </div>
+    
+
+        <script>
+           const createButton = document.getElementById("createButton");
+  const elementContainer = document.getElementById("elementContainer");
+
+  createButton.addEventListener("dragstart", function(event) {
+    event.dataTransfer.setData("text/plain", "Create Element");
+  });
+
+  elementContainer.addEventListener("dragover", function(event) {
+    event.preventDefault();
+  });
+
+  elementContainer.addEventListener("drop", function(event) {
+    event.preventDefault();
+    const data = event.dataTransfer.getData("text/plain");
+    if (data === "Create Element") {
+      const newElement = document.createElement("div");
+      newElement.className = "draggable";
+      newElement.textContent = "New Element";
+      newElement.draggable = true;
+      elementContainer.appendChild(newElement);
+    }
+  });
+        </script>
+        
+</body>
+</html>

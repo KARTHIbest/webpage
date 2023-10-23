@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Design Page</title>
+    <link rel="stylesheet" href="form.css">
+    <script src="function.js"></script>
+    <style>
+      #elementContainer {
+        width: 300px;
+        height: 300px;
+        background-color: lightgray;
+      }
+  
+      .draggable {
+        width: 100px;
+        height: 30px;
+        background-color: lightblue;
+        text-align: center;
+        line-height: 30px;
+        cursor: grab;
+      }
+      /* .element {
+    width: 50px;
+    height: 50px;
+    background-color: pink;
+    position: absolute;
+  } */
+  .element {
+    width: auto;
+    height: 50PX;
+    background-color: white;
+    position: absolute;
+    cursor: move;
+  }
+    </style>
+</head>
+<body>
+ 
+    <div class="sidebar">
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form Designer</h1>
+        <button class="elements" name="layout" onclick="layout()"><img src="images/layout.png" alt="layout"><p> Layout</p></button>
+        <button class="elements" id="labelBtn" name="label" ><img src="images/label.png" alt="label"><p> Label</p></button>
+        <button class="elements" id="buttonBtn" onclick="createNewElement()"><img src="images/button.png" alt="button"><p> Button</p></button>
+        <button class="elements" id="textboxBtn"><img src="images/text.png" alt="text"><p> Text</p></button>
+        <button class="elements" id="checkboxBtn"><img src="images/checkbox.png" alt="checkbox"><p> Check-Box</p></button>
+        <button class="elements" id="radioBtn"><img src="images/radio.png" alt="radio"><p> Radio</p></button>
+        <button class="elements" id="dropdownBtn"><img src="images/dropdown.png" alt="dropdown"><p> Drop-Down</p></button>
+        <button class="elements" id="imageBtn"><img src="images/image.png" alt="image"><p> Image</p></button>
+        <button class="elements" onclick="createTable()"><img src="images/table.png" alt="table"><p> Table</p></button>
+        <button class="elements" id="linkBtn"><img src="images/nav-link.png" alt="nav-link"><p> Link</p></button>
+        
+    </div>
+    <div id="lform" >
+        
+    </div>
+    <div class="body">
+        <button id="previewButton">Preview</button>
+        <button style="background-color: teal; color: white;" id="previewButton">Publish</button>
+        <br><br>
+        <div class="box" id="box"></div>
+        
+        <button onclick="window.location.reload()">Clear</button>
+    </div>
+    
+
+        <script>
+          const box = document.getElementById('box');
+      
+          function createElement(elementType, inputType = null) {
+            const newElement = document.createElement(elementType);
+            if (inputType) {
+              newElement.type = inputType;
+            }
+      
+            if (elementType === 'input') {
+              if (inputType === 'text') {
+                const textarea = document.createElement('textarea');
+                textarea.textContent = 'Placeholder';
+                textarea.className = 'element resizable-textbox';
+                newElement.appendChild(textarea);
+              } else if (inputType === 'checkbox') 
+                newElement.setAttribute('type', 'checkbox');
+              }
+            } else {
+              if (elementType === 'a') {
+          // Create a link with user-defined URL
+          const linkUrl = prompt('Enter the URL for the link:');
+          if (linkUrl !== null) {
+            newElement.href = linkUrl;
+            newElement.addEventListener('click', (event) => {
+              event.preventDefault(); // Prevent the default link behavior
+            });
+          }
+        }
+              newElement.innerHTML = 'New ' + elementType;
+              newElement.title = 'Click to rename';
+              newElement.addEventListener('click', () => {
+                const newName = prompt('Enter a new name:', newElement.innerHTML);
+                if (newName !== null) {
+                  newElement.innerHTML = newName;
+                }
+              });
+            }
+      
+            if (elementType === 'img') {
+              newElement.alt = 'Image';
+              newElement.title = 'Hover to set image source';
+              newElement.addEventListener('click', () => {
+                const newSrc = prompt('Enter the image source:');
+                if (newSrc !== null) {
+                  newElement.src = newSrc;
+                }
+              });
+            }
+      
+            newElement.className = 'element';
+            newElement.style.left = '0px';
+            newElement.style.top = '0px';
+      
+            box.appendChild(newElement);
+            makeElementDraggable(newElement);
+          }
+      
+          function makeElementDraggable(element) {
+            let isDragging = false;
+      
+            element.addEventListener('mousedown', (e) => {
+              isDragging = true;
+              element.style.zIndex = 1;
+              const offsetX = e.clientX - element.getBoundingClientRect().left;
+              const offsetY = e.clientY - element.getBoundingClientRect().top;
+      
+              document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                  const x = e.clientX - offsetX - box.getBoundingClientRect().left;
+                  const y = e.clientY - offsetY - box.getBoundingClientRect().top;
+      
+                  element.style.left = `${x}px`;
+                  element.style.top = `${y}px`;
+                }
+              });
+      
+              document.addEventListener('mouseup', () => {
+                isDragging = false;
+                element.style.zIndex = 0;
+              });
+            });
+          }
+      
+          // Add event listeners to buttons
+          document.getElementById('labelBtn').addEventListener('click', () => createElement('label'));
+          document.getElementById('buttonBtn').addEventListener('click', () => createElement('button'));
+          document.getElementById('radioBtn').addEventListener('click', () => createElement('input', 'radio'));
+          document.getElementById('dropdownBtn').addEventListener('click', () => createElement('select'));
+          document.getElementById('linkBtn').addEventListener('click', () => createElement('a'));
+          document.getElementById('textboxBtn').addEventListener('click', () => createElement('input', 'text'));
+          document.getElementById('checkboxBtn').addEventListener('click', () => createElement('input', 'checkbox'));
+          document.getElementById('imageBtn').addEventListener('click', () => createElement('img'));
+          document.getElementById('tableBtn').addEventListener('click', () => createTable());
+      
+          function createTable() {
+      const newTable = document.createElement('table');
+      newTable.className = 'element';
+      newTable.style.left = '0px';
+      newTable.style.top = '0px';
+
+      for (let i = 0; i < 3; i++) {
+        const newRow = document.createElement('tr');
+        for (let j = 0; j < 3; j++) {
+          const cell = document.createElement('td');
+          cell.innerHTML = 'Cell ' + (i * 3 + j + 1);
+          cell.addEventListener('click', () => {
+            const newValue = prompt('Enter a new value:', cell.innerHTML);
+            if (newValue !== null) {
+              cell.innerHTML = newValue;
+            }
+          });
+          newRow.appendChild(cell);
+        }
+        newTable.appendChild(newRow);
+      }
+
+      box.appendChild(newTable);
+      makeElementDraggable(newTable);
+    }
+      
+          // Add event listener to the Preview button
+          document.getElementById('previewButton').addEventListener('click', () => {
+            // Create a Blob containing the HTML content of the box
+            const htmlContent = `<!DOCTYPE html>
+      <html>
+      <head>
+      <style>
+        .box {
+          width: 400px;
+          height: 400px;
+          background-color: lightblue;
+          position: relative;
+        }
+        .element {
+          width: 100px;
+          height: 50px;
+          background-color: pink;
+          position: absolute;
+          cursor: move;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .resizable-textbox {
+          resize: both;
+          overflow: auto;
+        }
+      </style>
+      </head>
+      <body>
+        <div class="box">
+          ${box.innerHTML}
+        </div>
+      </body>
+      </html>`;
+      
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const blobUrl = URL.createObjectURL(blob);
+      
+            // Create a link to download the preview
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = 'preview.html';
+            link.click();
+      
+            // Clean up by revoking the URL
+            URL.revokeObjectURL(blobUrl);
+          });
+        </script>
+        
+</body>
+</html>
